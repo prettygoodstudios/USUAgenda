@@ -8,7 +8,17 @@ export default class Header extends Component {
         this.state = {
             openMenu: false
         }
+    }
 
+    componentDidMount(){
+        window.addEventListener("click", (e) => {
+            if(this.state.openMenu && e.target.className != "header__toggle open-menu-toggle" &&  e.target.className != "header__menu header__menu-open"){
+                console.log(e.target.className);
+                this.setState({
+                    openMenu: false
+                });
+            }
+        });
     }
 
     toggleMenu = () => {
@@ -26,6 +36,7 @@ export default class Header extends Component {
                     <span></span>
                 </div>
                 <h1>Agenda</h1>
+                <div className={"header__menu"+(this.state.openMenu ? " header__menu-open" : "")}></div>
             </div>
         );
     }
