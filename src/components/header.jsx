@@ -21,8 +21,7 @@ export default class Header extends Component {
     }
 
     handleCloseClick = (e) => {
-        if(this.state.openMenu && e.target.className != "header__toggle open-menu-toggle" &&  e.target.className != "header__menu header__menu-open"){
-            console.log(e.target.className);
+        if(this.state.openMenu && e.target.className != "header__toggle open-menu-toggle" &&  e.target.className != "header__menu header__menu-open" && e.target.id != "toggleSpan"){
             this.setState({
                 openMenu: false
             });
@@ -39,9 +38,9 @@ export default class Header extends Component {
         return(
             <div className="header">
                 <div className={"header__toggle"+(this.state.openMenu ? " open-menu-toggle" : "")} onClick={this.toggleMenu}>
-                    <span></span>
-                    <span></span>   
-                    <span></span>
+                    <span id="toggleSpan"></span>
+                    <span id="toggleSpan"></span>   
+                    <span id="toggleSpan"></span>
                 </div>
                 <h1>Agenda</h1>
                 <div className={"header__menu"+(this.state.openMenu ? " header__menu-open" : "")}>
