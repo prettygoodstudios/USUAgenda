@@ -1,7 +1,10 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+
+import * as actions from "../actions";
 
 
-export default class Header extends Component {
+class Header extends Component {
 
     constructor(){
         super();
@@ -45,6 +48,11 @@ export default class Header extends Component {
                 <h1>Agenda</h1>
                 <div className={"header__menu"+(this.state.openMenu ? " header__menu-open" : "")}>
                     {
+                        this.props.items.map((m, i) => {
+                            return <div className="header__menu__item">{m.title}</div>
+                        })
+                    }
+                    {
                         this.state.menuItems.map((m, i) => {
                             return <div className="header__menu__item" onClick={m.action}>{m.title}</div>
                         })
@@ -54,3 +62,11 @@ export default class Header extends Component {
         );
     }
 }
+
+function mapStateToProps(state){
+    return{
+        items: state.agenda.items
+    }
+}
+
+export default connect(mapStateToProps, actions)(Header);

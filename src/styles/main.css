@@ -6,3 +6,6 @@ html, body{
 }
 
 
+#agendaMap{
+    height: calc(100vh - 75px);
+}
