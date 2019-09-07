@@ -6,7 +6,13 @@ export default class Header extends Component {
     constructor(){
         super();
         this.state = {
-            openMenu: false
+            openMenu: false,
+            menuItems: [
+                {
+                    title: "Add Agenda Item",
+                    action: () => alert("Not Built Yet")
+                }
+            ]
         }
     }
 
@@ -38,7 +44,13 @@ export default class Header extends Component {
                     <span></span>
                 </div>
                 <h1>Agenda</h1>
-                <div className={"header__menu"+(this.state.openMenu ? " header__menu-open" : "")}></div>
+                <div className={"header__menu"+(this.state.openMenu ? " header__menu-open" : "")}>
+                    {
+                        this.state.menuItems.map((m, i) => {
+                            return <div className="header__menu__item" onClick={m.action}>{m.title}</div>
+                        })
+                    }
+                </div>
             </div>
         );
     }

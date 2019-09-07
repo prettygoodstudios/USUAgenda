@@ -75,7 +75,24 @@ html, body{
     left: -200px;
     background-color: white;
     transition: 1s ease left;
+    display: flex;
+    flex-direction: column;
+    color: black;
 }
+
+.header__menu__item{
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+}
+
+.header__menu__item:hover{
+    background-color: #ECECEC;
+    cursor: pointer;
+}
+
 
 .header__menu-open{
     left: 0;
