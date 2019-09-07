@@ -1,7 +1,9 @@
 import {combineReducers} from "redux";
 
-const rootReducer = combineReducers({
+import agenda from "./agenda";
 
+const rootReducer = combineReducers({
+    agenda
 });
 
 export default rootReducer;

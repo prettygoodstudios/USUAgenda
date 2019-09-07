@@ -1,0 +1,1 @@
+export const GET_AGENDA = 'GET_AGENDA';
