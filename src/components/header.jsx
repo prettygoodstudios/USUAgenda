@@ -11,14 +11,16 @@ export default class Header extends Component {
     }
 
     componentDidMount(){
-        window.addEventListener("click", (e) => {
-            if(this.state.openMenu && e.target.className != "header__toggle open-menu-toggle" &&  e.target.className != "header__menu header__menu-open"){
-                console.log(e.target.className);
-                this.setState({
-                    openMenu: false
-                });
-            }
-        });
+        window.addEventListener("click", (e) => this.handleCloseClick(e));
+    }
+
+    handleCloseClick = (e) => {
+        if(this.state.openMenu && e.target.className != "header__toggle open-menu-toggle" &&  e.target.className != "header__menu header__menu-open"){
+            console.log(e.target.className);
+            this.setState({
+                openMenu: false
+            });
+        }
     }
 
     toggleMenu = () => {
