@@ -8,7 +8,8 @@ const INIT_STATE = {
             room: "115",
             days: ["M","W","F"],
             start: "9:30 AM",
-            end: "10:20 AM"
+            end: "10:20 AM",
+            coords: [-111.8097, 41.7452]
         }
     ]
 }
