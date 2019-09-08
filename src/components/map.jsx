@@ -19,13 +19,19 @@ export default class Map extends Component {
                 zoom: 13.5
             })
         });
-        window.setTimeout(this.addNavigation, 1000);
+        window.setTimeout(this.addNavigation, 50);
     }
 
 
     addNavigation = () => {
-        console.log("Hello");
-        this.state.map.addControl(new NavigationControl());
+        const nav = new NavigationControl({
+            showCompass: true,
+            showZoom: true
+        });
+        console.log(nav);
+        this.setState({
+            map: this.state.map.addControl(nav, 'top-right')
+        });
     }
 
     render(){

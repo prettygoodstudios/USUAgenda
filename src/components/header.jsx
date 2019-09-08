@@ -49,12 +49,12 @@ class Header extends Component {
                 <div className={"header__menu"+(this.state.openMenu ? " header__menu-open" : "")}>
                     {
                         this.props.items.map((m, i) => {
-                            return <div className="header__menu__item">{m.title}</div>
+                            return <div className="header__menu__item" key={i}>{m.title}</div>
                         })
                     }
                     {
                         this.state.menuItems.map((m, i) => {
-                            return <div className="header__menu__item" onClick={m.action}>{m.title}</div>
+                            return <div className="header__menu__item" onClick={m.action} key={i}>{m.title}</div>
                         })
                     }
                 </div>
