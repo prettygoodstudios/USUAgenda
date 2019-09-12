@@ -8,6 +8,7 @@ const store = createStore(rootReducer, compose(applyMiddleware(thunk), (window._
 
 import Header from "./header.jsx";
 import Map from "./map.jsx";
+import NewItemModal from "./newItemModal.jsx";
 
 export default class App extends Component {
    render(){
@@ -16,7 +17,7 @@ export default class App extends Component {
                 <div>
                     <Header />
                     <Map />
-                    <h1>Hello From App</h1>
+                    <NewItemModal />
                 </div>
             </Provider>
        );

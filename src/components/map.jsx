@@ -37,10 +37,13 @@ class Map extends Component {
 
             });
             popup.setHTML(
-                `<h1>${e.title}</h1>
-                 <p>${e.building} - ${e.room}</p>
-                 <p>Days: ${e.days.join(" ")}</p>
-                 <p>${e.start} - ${e.end}</p>
+                `
+                 <div>
+                    <h1>${e.title}</h1>
+                    <p>${e.building} - ${e.room}</p>
+                    <p>Days: ${e.days.join(" ")}</p>
+                    <p>${e.start} - ${e.end}</p>
+                 </div>
                 `
             );
             marker.setPopup(popup);

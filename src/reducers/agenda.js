@@ -1,4 +1,4 @@
-import { GET_AGENDA } from "../actions/actions";
+import { GET_AGENDA, TOGGLE_NEW_ITEM_MODAL } from "../actions/actions";
 
 const INIT_STATE = {
     items: [
@@ -11,13 +11,25 @@ const INIT_STATE = {
             end: "10:20 AM",
             coords: [-111.8097, 41.7452]
         }
-    ]
+    ],
+    newItemModal: {
+        show: false,
+
+    }
 }
 
 export default function(state = INIT_STATE, action){
     switch(action.type){
         case GET_AGENDA:
             return {
+                items: action.payload,
+                ...state
+            }
+        case TOGGLE_NEW_ITEM_MODAL:
+            return {
+                newItemModal: {
+                    show: action.payload
+                },
                 ...state
             }
         default:

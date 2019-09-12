@@ -1,0 +1,23 @@
+.modal {
+     position: absolute;
+     top: 50vh;
+     left: 50vw;
+     transform: translate(-50%, -50%);
+     background-color: white;
+     padding: 40px;
+     border-radius: 20px;
+}
+
+.new-agenda-item__checkboxes{
+    display: flex;
+    flex-direction: row;
+}
+
+.new-agenda-item__checkboxes div{
+    margin-right: 20px;
+}
+
+.modal input, label {
+    margin-bottom: 10px;
+    display: block;
+}

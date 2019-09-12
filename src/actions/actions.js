@@ -1,1 +1,2 @@
 export const GET_AGENDA = 'GET_AGENDA';
+export const TOGGLE_NEW_ITEM_MODAL = 'TOGGLE_NEW_ITEM_MODAL';
