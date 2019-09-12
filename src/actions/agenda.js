@@ -13,7 +13,7 @@ export function getAgenda(){
 }
 
 function getAgendaData(){
-    return localforage.getAgenda('agenda');
+    return localforage.getItem('agenda');
 }
 
 export function addItem({title, days, start, end, building, room}){

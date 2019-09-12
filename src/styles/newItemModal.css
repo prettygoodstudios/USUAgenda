@@ -21,3 +21,19 @@
     margin-bottom: 10px;
     display: block;
 }
+
+.modal button{
+    border-radius: 10px;
+    margin: 5px;
+    font-size: 1em;
+    color: #ECECEC;
+    background-color: black;
+    border: 2px solid black;
+}
+
+.modal button:hover{
+    color: black;
+    border: 2px solid black;
+    background-color: transparent;
+    cursor: pointer;
+}

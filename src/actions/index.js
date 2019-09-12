@@ -1,1 +1,1 @@
-export {getAgenda, openNewItemModal, closeNewItemModal} from "./agenda";
+export {getAgenda, openNewItemModal, closeNewItemModal, addItem} from "./agenda";

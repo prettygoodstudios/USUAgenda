@@ -37,13 +37,13 @@ class NewItemModal extends Component {
                 {
                     label: "Start",
                     id: "start",
-                    type: "date",
+                    type: "time",
                     value: ""
                 },
                 {
                     label: "End",
                     id: "end",
-                    type: "date",
+                    type: "time",
                     value: ""
                 }
             ]
@@ -81,6 +81,19 @@ class NewItemModal extends Component {
         this.setState({
             inputs: tmpInputs
         });
+    }
+
+    submitForm = () => {
+        const {inputs} = this.state; 
+        const data = {
+            title: inputs[0].value,
+            building: inputs[1].value,
+            days: inputs[2].value.join(""),
+            start: inputs[3].value,
+            end: inputs[4].value
+        }
+        this.props.addItem(data);
+        this.props.closeNewItemModal();
     }
 
     render(){
@@ -121,6 +134,7 @@ class NewItemModal extends Component {
                         }
                     })
                 }
+                <button onClick={this.submitForm}>Add Item</button>
             </div>
         )
     }
