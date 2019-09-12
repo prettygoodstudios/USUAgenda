@@ -13,7 +13,7 @@ class Header extends Component {
             menuItems: [
                 {
                     title: "Add Agenda Item",
-                    action: () => alert("Not Built Yet")
+                    action: () => this.props.openNewItemModal()
                 }
             ]
         }

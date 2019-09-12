@@ -32,7 +32,7 @@ class NewItemModal extends Component {
                         "Thu",
                         "Fri"
                     ],
-                    value: ""
+                    value: []
                 },
                 {
                     label: "Start",
@@ -58,13 +58,35 @@ class NewItemModal extends Component {
                 tmpInputs[i].value = value;
             }
         });
-        console.log(tmpInputs)
+        this.setState({
+            inputs: tmpInputs
+        });
+    }
+
+    updateCheckBox = (id, e) => {
+        const {value} = e.target;
+        let tmpInputs = this.state.inputs;
+        let found = -1;
+        tmpInputs[2].value.forEach((day, i) => {
+            if(day == id){
+                found = i;
+            }
+        });
+        if(found != -1){
+            tmpInputs[2].value.splice(found, 1);
+        }else{
+            tmpInputs[2].value.push(id);
+        }
+        console.log(tmpInputs[2].value);
         this.setState({
             inputs: tmpInputs
         });
     }
 
     render(){
+        if(!this.props.show){
+            return <div></div>;
+        }
         return(
             <div className="modal">
                 <h1>Add An Agenda Item</h1>
@@ -81,7 +103,7 @@ class NewItemModal extends Component {
                                                 return(
                                                     <div>
                                                         <label for={o}>{o}</label>
-                                                        <input type={type} name={o} id={o} />
+                                                        <input type={type} name={o} id={o} onChange={(e) => this.updateCheckBox(o, e)}/>
                                                     </div>
                                                 )
                                             })

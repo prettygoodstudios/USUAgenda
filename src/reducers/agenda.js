@@ -22,15 +22,15 @@ export default function(state = INIT_STATE, action){
     switch(action.type){
         case GET_AGENDA:
             return {
-                items: action.payload,
-                ...state
+                ...state,
+                items: action.payload
             }
         case TOGGLE_NEW_ITEM_MODAL:
             return {
+                ...state,
                 newItemModal: {
                     show: action.payload
-                },
-                ...state
+                }
             }
         default:
             return{
