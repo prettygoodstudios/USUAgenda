@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 
 import * as actions from "../actions";
 
+import Error from "./error.jsx";
+
 class NewItemModal extends Component {
 
     constructor(){
@@ -46,7 +48,8 @@ class NewItemModal extends Component {
                     type: "time",
                     value: ""
                 }
-            ]
+            ],
+            error: ""
         }
     }
 
@@ -92,8 +95,56 @@ class NewItemModal extends Component {
             start: inputs[3].value,
             end: inputs[4].value
         }
-        this.props.addItem(data);
-        this.props.closeNewItemModal();
+        if(data.title != "" && data.building != "" && data.days != "" && data.start != "" && data.end != ""){
+            this.props.addItem(data);
+            this.props.closeNewItemModal();
+            this.setState({
+                error: "",
+                inputs: [
+                    {
+                        label: "Title",
+                        id: "title",
+                        type: "text",
+                        value: ""
+                    },
+                    {
+                        label: "Building",
+                        id: "building",
+                        type: "text",
+                        value: ""
+                    },
+                    {
+                        label: "Days",
+                        id: "room",
+                        type: "checkbox",
+                        options: [
+                            "Mon",
+                            "Tue",
+                            "Wed",
+                            "Thu",
+                            "Fri"
+                        ],
+                        value: []
+                    },
+                    {
+                        label: "Start",
+                        id: "start",
+                        type: "time",
+                        value: ""
+                    },
+                    {
+                        label: "End",
+                        id: "end",
+                        type: "time",
+                        value: ""
+                    }
+                ]
+            });
+        }else{
+            this.setState({
+                error: "You must completly fill out the form."
+            });
+        }
     }
 
     render(){
@@ -134,7 +185,9 @@ class NewItemModal extends Component {
                         }
                     })
                 }
+                <Error error={this.state.error} />
                 <button onClick={this.submitForm}>Add Item</button>
+                <button onClick={this.props.closeNewItemModal}>Cancel</button>
             </div>
         )
     }
