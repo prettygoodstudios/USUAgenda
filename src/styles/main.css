@@ -1,5 +1,11 @@
+:root{
+    --white-color: #ECECEC; 
+    --light-white-color: white;
+    --primary-color: #34495e;
+}
+
 html, body{
-    background-color: #ECECEC;
+    background-color: var(--white-color);
     font-family: Avenir;
     margin: 0px;
     padding: 0px;

@@ -10,7 +10,6 @@ import * as actions from "../actions";
 class AppWrapper extends Component {
 
     componentDidMount(){
-        console.log("Hello From AppWrapper Mount!");
         this.props.getAgenda();
     }
 
