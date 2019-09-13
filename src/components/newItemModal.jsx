@@ -24,6 +24,12 @@ class NewItemModal extends Component {
                     value: ""
                 },
                 {
+                    label: "Room",
+                    id: "Room",
+                    type: "text",
+                    value: ""
+                },
+                {
                     label: "Days",
                     id: "room",
                     type: "checkbox",
@@ -70,17 +76,17 @@ class NewItemModal extends Component {
         const {value} = e.target;
         let tmpInputs = this.state.inputs;
         let found = -1;
-        tmpInputs[2].value.forEach((day, i) => {
+        tmpInputs[3].value.forEach((day, i) => {
             if(day == id){
                 found = i;
             }
         });
         if(found != -1){
-            tmpInputs[2].value.splice(found, 1);
+            tmpInputs[3].value.splice(found, 1);
         }else{
-            tmpInputs[2].value.push(id);
+            tmpInputs[3].value.push(id);
         }
-        console.log(tmpInputs[2].value);
+        console.log(tmpInputs[3].value);
         this.setState({
             inputs: tmpInputs
         });
@@ -91,11 +97,12 @@ class NewItemModal extends Component {
         const data = {
             title: inputs[0].value,
             building: inputs[1].value,
-            days: inputs[2].value.join(""),
-            start: inputs[3].value,
-            end: inputs[4].value
+            room: inputs[2].value,
+            days: inputs[3].value,
+            start: inputs[4].value,
+            end: inputs[5].value
         }
-        if(data.title != "" && data.building != "" && data.days != "" && data.start != "" && data.end != ""){
+        if(data.title != "" && data.building != "" && data.days != "" && data.start != "" && data.end != "" && data.room != ""){
             this.props.addItem(data);
             this.props.closeNewItemModal();
             this.setState({
@@ -110,6 +117,12 @@ class NewItemModal extends Component {
                     {
                         label: "Building",
                         id: "building",
+                        type: "text",
+                        value: ""
+                    },
+                    {
+                        label: "Room",
+                        id: "room",
                         type: "text",
                         value: ""
                     },

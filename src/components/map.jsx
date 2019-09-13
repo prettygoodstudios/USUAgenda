@@ -15,7 +15,16 @@ class Map extends Component {
         }
     }
 
+    parseTime(time){
+        let hour = parseInt(time.split(":")[0]);
+        const amPM = hour >=12 ? "PM" : "AM";
+        hour = hour == 0 ? 12 : hour;
+        hour = hour > 12 ? hour-12 : hour;
+        return hour+":"+time.split(":")[1]+" "+amPM;
+    }
+
     componentDidMount(){
+        this.props.getAgenda();
         map = new mapboxgl.Map({
             container: 'agendaMap',
             style: 'mapbox://styles/mapbox/streets-v11',
@@ -42,7 +51,7 @@ class Map extends Component {
                     <h1>${e.title}</h1>
                     <p>${e.building} - ${e.room}</p>
                     <p>Days: ${e.days.join(" ")}</p>
-                    <p>${e.start} - ${e.end}</p>
+                    <p>${this.parseTime(e.start)} - ${this.parseTime(e.end)}</p>
                  </div>
                 `
             );

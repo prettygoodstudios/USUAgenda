@@ -6,19 +6,13 @@ import thunk from "redux-thunk";
 import rootReducer from "../reducers";
 const store = createStore(rootReducer, compose(applyMiddleware(thunk), (window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())) );
 
-import Header from "./header.jsx";
-import Map from "./map.jsx";
-import NewItemModal from "./newItemModal.jsx";
+import AppWrapper from "./appWrapper.jsx";
 
 export default class App extends Component {
    render(){
        return(
             <Provider store={store}>
-                <div>
-                    <Header />
-                    <Map />
-                    <NewItemModal />
-                </div>
+                <AppWrapper />
             </Provider>
        );
    }

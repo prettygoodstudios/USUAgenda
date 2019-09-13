@@ -1,12 +1,16 @@
 import {GET_AGENDA, TOGGLE_NEW_ITEM_MODAL} from "./actions";
+import { OCD_KEY } from "../env";
+
 import localforage from "localforage";
+import opencage from "opencage-api-client";
+
 
 export function getAgenda(){
     return function(dispatch){
         getAgendaData().then((data) => {
             dispatch({
                 type: GET_AGENDA,
-                payload: GET_AGENDA
+                payload: data ? data : []
             });
         });
     }
@@ -20,24 +24,44 @@ export function addItem({title, days, start, end, building, room}){
     return function(dispatch){
         getAgendaData().then((agenda) => {
             const newAgenda = agenda ? agenda : [];
-            newAgenda.push({
-                title,
-                days, 
-                start, 
-                end, 
-                building,
-                room
-            });
-            localforage.setItem('agenda', newAgenda).then(function (value) {
-                // Do other things once the value has been saved.
-                dispatch({
-                    type: GET_AGENDA,
-                    payload: newAgenda
-                });
-            }).catch(function(err) {
-                // This code runs if there were any errors
-                console.log(err);
-            });
+            opencage.geocode({q: building+", Logan, Utah", key: OCD_KEY}).then(data => {
+                if (data.status.code == 200) {
+                  if (data.results.length > 0) {
+                    var place = data.results[0];
+                    //console.log(place.formatted);
+                    //console.log(place.geometry);
+                    //console.log(place.annotations.timezone.name);
+                    newAgenda.push({
+                        title,
+                        days, 
+                        start, 
+                        end, 
+                        building,
+                        room,
+                        coords: [place.geometry.lng, place.geometry.lat]
+                    });
+                    localforage.setItem('agenda', newAgenda).then(function (value) {
+                        // Do other things once the value has been saved.
+                        dispatch({
+                            type: GET_AGENDA,
+                            payload: newAgenda
+                        });
+                    }).catch(function(err) {
+                        // This code runs if there were any errors
+                        console.log(err);
+                    });
+                  }
+                } else if (data.status.code == 402) {
+                  console.log('hit free-trial daily limit');
+                  console.log('become a customer: https://opencagedata.com/pricing'); 
+                } else {
+                  // other possible response codes:
+                  // https://opencagedata.com/api#codes
+                  console.log('error', data.status.message);
+                }
+              }).catch(error => {
+                console.log('error', error.message);
+              });
         });
     };
 }
