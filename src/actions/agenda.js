@@ -1,4 +1,4 @@
-import {GET_AGENDA, TOGGLE_NEW_ITEM_MODAL, TOGGLE_SET_DAY_MODAL, SET_DAY} from "./actions";
+import {GET_AGENDA, TOGGLE_NEW_ITEM_MODAL, TOGGLE_SET_DAY_MODAL, SET_DAY, OPEN_AGENDA_MODAL, CLOSE_AGENDA_MODAL} from "./actions";
 import { OCD_KEY } from "../env";
 
 import localforage from "localforage";
@@ -98,5 +98,19 @@ export function setDay(day){
     return{
         type: SET_DAY, 
         payload: day
+    }
+}
+
+export function openAgendaModal(index){
+    return{
+        type: OPEN_AGENDA_MODAL,
+        payload: index
+    }
+}
+
+export function closeAgendaModal(){
+    return{
+        type: CLOSE_AGENDA_MODAL,
+        payload: {}
     }
 }

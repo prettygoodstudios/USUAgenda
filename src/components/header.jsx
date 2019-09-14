@@ -49,7 +49,11 @@ class Header extends Component {
     }
 
     render(){
-        const agendaItems = this.props.items.filter((i) => {
+        let agendaItems = this.props.items.map((a, i) => {
+           return {...a, id: i};
+        });
+        
+        agendaItems = agendaItems.filter((i) => {
             let found = false;
             i.days.forEach((d) => {
                 if(d == this.props.day || this.props.day == "All") found = true;
@@ -71,7 +75,7 @@ class Header extends Component {
                 <div className={"header__menu"+(this.state.openMenu ? " header__menu-open" : "")}>
                     {
                         agendaItems.map((m, i) => {
-                            return <div className="header__menu__item" key={i}>{m.title}<span>{`${parseTime(m.start)} - ${parseTime(m.end)}`}</span></div>
+                            return <div className="header__menu__item" key={i} onClick={() => this.props.openAgendaModal(m.id)}>{m.title}<span>{`${parseTime(m.start)} - ${parseTime(m.end)}`}</span></div>
                         })
                     }
                     {

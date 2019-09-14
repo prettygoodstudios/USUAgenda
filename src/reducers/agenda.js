@@ -1,4 +1,4 @@
-import { GET_AGENDA, TOGGLE_NEW_ITEM_MODAL, TOGGLE_SET_DAY_MODAL, SET_DAY } from "../actions/actions";
+import { GET_AGENDA, TOGGLE_NEW_ITEM_MODAL, TOGGLE_SET_DAY_MODAL, SET_DAY, OPEN_AGENDA_MODAL, CLOSE_AGENDA_MODAL } from "../actions/actions";
 
 const days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
 const INIT_STATE = {
@@ -20,7 +20,11 @@ const INIT_STATE = {
     setDayModal: {
         show: false
     },
-    day: days[new Date().getDay()]
+    day: days[new Date().getDay()],
+    agendaItemModal: {
+        show: false,
+        id: -1
+    }
 }
 
 export default function(state = INIT_STATE, action){
@@ -48,6 +52,22 @@ export default function(state = INIT_STATE, action){
             return{
                 ...state,
                 day: action.payload
+            }
+        case OPEN_AGENDA_MODAL:
+            return{
+                ...state,
+                agendaItemModal: {
+                    show: true,
+                    id: action.payload
+                }
+            }
+        case CLOSE_AGENDA_MODAL: 
+            return{
+                ...state,
+                agendaItemModal: {
+                    show: false,
+                    id: -1
+                }
             }
         default:
             return{
