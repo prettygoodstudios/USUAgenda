@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 
 import * as actions from "../actions";
 
+const days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
 
 class Header extends Component {
 
@@ -11,16 +12,25 @@ class Header extends Component {
         this.state = {
             openMenu: false,
             menuItems: [
-                {
-                    title: "Add Agenda Item",
-                    action: () => this.props.openNewItemModal()
-                }
+                
             ]
         }
     }
 
     componentDidMount(){
         window.addEventListener("click", (e) => this.handleCloseClick(e));
+        this.setState({
+            menuItems: [
+                {
+                    title: "Add Agenda Item",
+                    action: () => this.props.openNewItemModal()
+                },
+                {
+                    title: "Set Day",
+                    action: () => this.props.openSetDayModal()
+                }
+            ]
+        })
     }
 
     handleCloseClick = (e) => {
@@ -65,7 +75,8 @@ class Header extends Component {
 
 function mapStateToProps(state){
     return{
-        items: state.agenda.items
+        items: state.agenda.items,
+        day: state.agenda.day
     }
 }
 
