@@ -29,6 +29,8 @@ class SetDayModal extends Component{
                     <option>Wed</option>
                     <option>Thu</option>
                     <option>Fri</option>
+                    <option>Sat</option>
+                    <option>Sun</option>
                 </select>
                 <br />
                 <button onClick={() => this.props.closeSetDayModal()}>Dismiss</button>

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import mapboxgl, {NavigationControl} from "mapbox-gl/dist/mapbox-gl.js";
+import mapboxgl, {NavigationControl, GeolocateControl} from "mapbox-gl/dist/mapbox-gl.js";
 import {connect} from "react-redux";
 
 import * as actions from "../actions";
@@ -29,6 +29,12 @@ class Map extends Component {
             showZoom: true
         });
         map.addControl(nav, 'top-right');
+        map.addControl(new GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        }));
         let marker;
         let popup;
         this.props.items.forEach((e) => {
