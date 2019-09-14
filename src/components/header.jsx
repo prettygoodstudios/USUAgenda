@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import * as actions from "../actions";
+import {parseTime} from "../helpers/time";
 
 const days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
 
@@ -70,7 +71,7 @@ class Header extends Component {
                 <div className={"header__menu"+(this.state.openMenu ? " header__menu-open" : "")}>
                     {
                         agendaItems.map((m, i) => {
-                            return <div className="header__menu__item" key={i}>{m.title}</div>
+                            return <div className="header__menu__item" key={i}>{m.title}<span>{`${parseTime(m.start)} - ${parseTime(m.end)}`}</span></div>
                         })
                     }
                     {

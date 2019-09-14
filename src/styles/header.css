@@ -85,6 +85,9 @@
     cursor: pointer;
 }
 
+.header__menu__item > span {
+    font-size: 0.8em;
+}
 
 .header__menu-open{
     left: 0;
