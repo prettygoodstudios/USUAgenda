@@ -48,6 +48,17 @@ class Header extends Component {
     }
 
     render(){
+        const agendaItems = this.props.items.filter((i) => {
+            let found = false;
+            i.days.forEach((d) => {
+                if(d == this.props.day || this.props.day == "All") found = true;
+            });
+            return found;
+        });
+
+        agendaItems.sort((a, b) => {
+            return parseInt(a.start.split(":")[0])-parseInt(b.start.split(":")[0]);
+        });
         return(
             <div className="header">
                 <div className={"header__toggle"+(this.state.openMenu ? " open-menu-toggle" : "")} onClick={this.toggleMenu}>
@@ -58,7 +69,7 @@ class Header extends Component {
                 <h1>Agenda</h1>
                 <div className={"header__menu"+(this.state.openMenu ? " header__menu-open" : "")}>
                     {
-                        this.props.items.map((m, i) => {
+                        agendaItems.map((m, i) => {
                             return <div className="header__menu__item" key={i}>{m.title}</div>
                         })
                     }

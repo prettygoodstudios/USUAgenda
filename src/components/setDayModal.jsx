@@ -7,16 +7,10 @@ class SetDayModal extends Component{
 
     constructor(){
         super();
-        this.state = {
-            day: "All"
-        }
     }
 
     updateDay = (e) => {
         const {value} = e.target;
-        this.setState({
-            day: value
-        });
         this.props.setDay(value);
     }
 
@@ -28,7 +22,7 @@ class SetDayModal extends Component{
             <div className="modal">
                 <h1>Set Day</h1>
                 <label for="day">Select Day</label>
-                <select value={this.state.day} onChange={(e) => this.updateDay(e)}>
+                <select value={this.props.day} onChange={(e) => this.updateDay(e)}>
                     <option>All</option>
                     <option>Mon</option>
                     <option>Tue</option>
@@ -46,7 +40,8 @@ class SetDayModal extends Component{
 function mapStateToProps(state){
     const {setDayModal} = state.agenda;
     return{
-        ...setDayModal
+        ...setDayModal,
+        day: state.agenda.day
     }
 }
 
