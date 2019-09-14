@@ -39,6 +39,13 @@ export default function(state = INIT_STATE, action){
                 ...state,
                 newItemModal: {
                     show: action.payload
+                },
+                setDayModal: {
+                    show: false
+                },
+                agendaItemModal: {
+                    id: -1,
+                    show: false
                 }
             }
         case TOGGLE_SET_DAY_MODAL:
@@ -46,6 +53,13 @@ export default function(state = INIT_STATE, action){
                 ...state,
                 setDayModal:{
                     show: action.payload
+                },
+                agendaItemModal: {
+                    show: false,
+                    id: -1
+                },
+                newItemModal: {
+                    show: false
                 }
             }
         case SET_DAY:
@@ -59,6 +73,12 @@ export default function(state = INIT_STATE, action){
                 agendaItemModal: {
                     show: true,
                     id: action.payload
+                },
+                setDayModal: {
+                    show: false
+                },
+                newItemModal: {
+                    show: false
                 }
             }
         case CLOSE_AGENDA_MODAL: 
