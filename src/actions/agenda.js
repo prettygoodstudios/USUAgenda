@@ -20,6 +20,10 @@ function getAgendaData(){
     return localforage.getItem('agenda');
 }
 
+function setAgendaData(agenda){
+    return localforage.setItem('agenda', agenda);
+}
+
 export function addItem({title, days, start, end, building, room}){
     return function(dispatch){
         getAgendaData().then((agenda) => {
@@ -40,7 +44,7 @@ export function addItem({title, days, start, end, building, room}){
                         room,
                         coords: [place.geometry.lng, place.geometry.lat]
                     });
-                    localforage.setItem('agenda', newAgenda).then(function (value) {
+                    setAgendaData(newAgenda).then(function (value) {
                         // Do other things once the value has been saved.
                         dispatch({
                             type: GET_AGENDA,
@@ -64,6 +68,21 @@ export function addItem({title, days, start, end, building, room}){
               });
         });
     };
+}
+
+export function deleteItem(index){
+    return function(dispatch){
+        getAgendaData().then((data) => {
+            const newData = data;
+            newData.splice(index, 1);
+            setAgendaData(data).then((agenda) => {
+                dispatch({
+                    type: GET_AGENDA,
+                    payload: agenda
+                });
+            });
+        });
+    }
 }
 
 export function openNewItemModal(){

@@ -5,6 +5,13 @@ import * as actions from "../actions";
 import { parseTime } from "../helpers/time";
 
 class AgendaItemModal extends Component {
+
+
+    deleteItem = () => {
+        this.props.deleteItem(this.props.id);
+        this.props.closeAgendaModal();
+    }
+
     render(){
         const {title, show, start, end, building, room, days} = this.props;
         if(!show) return <div></div>;
@@ -15,6 +22,7 @@ class AgendaItemModal extends Component {
                 <p>{days}</p>
                 <p>{`${building} - ${room}`}</p>
                 <button onClick={this.props.closeAgendaModal}>Dismiss</button>
+                <button onClick={this.deleteItem}>Delete Item</button>
             </div>
         );
     }
