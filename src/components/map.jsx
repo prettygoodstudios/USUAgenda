@@ -91,6 +91,10 @@ function mapStateToProps(state){
         data: geoJSON
     }
     console.log(geoJSON)
+    if(map.getSource && map.getSource('agendaItems')){
+        console.log(map)
+        map.getSource('agendaItems').setData(geoJSON);
+    }
     return{
         items: layer
     }
