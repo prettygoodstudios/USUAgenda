@@ -42,10 +42,15 @@ class Map extends Component {
                 "type": "circle",
                 "source": "agendaItems",
                 "paint": {
-                "circle-radius": 40,
-                "circle-color": "#B42222"
+                    "circle-radius": 20,
+                    "circle-color": "#ececec",
+                    "circle-stroke-color": "#34495e",
+                    "circle-stroke-width": 4
                 },
                 "filter": ["==", "$type", "Point"],
+                });
+                map.on('click', 'agendaItems', function(e){
+                    console.log("hello")
                 });
         });
     }
@@ -81,8 +86,7 @@ function mapStateToProps(state){
                 coordinates: e.coords
             },
             properties: {
-                "title": "Mapbox SF",
-                "icon": "harbor"
+
             }
         });
     });
@@ -94,6 +98,12 @@ function mapStateToProps(state){
     if(map.getSource && map.getSource('agendaItems')){
         console.log(map)
         map.getSource('agendaItems').setData(geoJSON);
+    }
+    if(map.on){
+        console.log("map on")
+        map.on('click', 'agendaItems', function(e){
+            console.log("hello")
+        });
     }
     return{
         items: layer

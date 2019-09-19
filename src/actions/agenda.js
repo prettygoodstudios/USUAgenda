@@ -75,7 +75,7 @@ export function deleteItem(index){
         getAgendaData().then((data) => {
             const newData = data;
             newData.splice(index, 1);
-            setAgendaData(data).then((agenda) => {
+            setAgendaData(newData).then((agenda) => {
                 dispatch({
                     type: GET_AGENDA,
                     payload: agenda

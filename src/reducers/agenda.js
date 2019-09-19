@@ -32,11 +32,13 @@ const INIT_STATE = {
 export default function(state = INIT_STATE, action){
     switch(action.type){
         case GET_AGENDA:
-            const initialTodaysItems = state.items.filter((i) => {
+            const initialTodaysItems = action.payload.filter((i) => {
                 let found = false;
-                i.days.forEach((d) => {
-                    if(d == state.day || state.day == "All") found = true;
-                });
+                if(i.days.forEach){
+                    i.days.forEach((d) => {
+                        if(d == state.day || state.day == "All") found = true;
+                    });
+                }
                 return found;
             });
             return {
@@ -75,9 +77,11 @@ export default function(state = INIT_STATE, action){
         case SET_DAY:
             const todaysItems = state.items.filter((i) => {
                 let found = false;
-                i.days.forEach((d) => {
-                    if(d == action.payload || action.payload == "All") found = true;
-                });
+                if(i.days.forEach){
+                    i.days.forEach((d) => {
+                        if(d == action.payload || action.payload == "All") found = true;
+                    });
+                }
                 return found;
             });
             return{
