@@ -53,13 +53,6 @@ class Header extends Component {
            return {...a, id: i};
         });
         
-        agendaItems = agendaItems.filter((i) => {
-            let found = false;
-            i.days.forEach((d) => {
-                if(d == this.props.day || this.props.day == "All") found = true;
-            });
-            return found;
-        });
 
         agendaItems.sort((a, b) => {
             return parseInt(a.start.split(":")[0])-parseInt(b.start.split(":")[0]);
@@ -91,7 +84,7 @@ class Header extends Component {
 
 function mapStateToProps(state){
     return{
-        items: state.agenda.items,
+        items: state.agenda.todaysItems,
         day: state.agenda.day
     }
 }

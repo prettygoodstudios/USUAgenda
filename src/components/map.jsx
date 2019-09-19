@@ -73,7 +73,7 @@ function mapStateToProps(state){
         type: 'FeatureCollection',
         features: []
     };
-    state.agenda.items.forEach((e) => {
+    state.agenda.todaysItems.forEach((e) => {
         geoJSON.features.push({
             type: 'Feature',
             geometry: {

@@ -1,6 +1,7 @@
 import { GET_AGENDA, TOGGLE_NEW_ITEM_MODAL, TOGGLE_SET_DAY_MODAL, SET_DAY, OPEN_AGENDA_MODAL, CLOSE_AGENDA_MODAL } from "../actions/actions";
 
 const days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+
 const INIT_STATE = {
     items: [
         {
@@ -24,15 +25,24 @@ const INIT_STATE = {
     agendaItemModal: {
         show: false,
         id: -1
-    }
+    },
+    todaysItems: []
 }
 
 export default function(state = INIT_STATE, action){
     switch(action.type){
         case GET_AGENDA:
+            const initialTodaysItems = state.items.filter((i) => {
+                let found = false;
+                i.days.forEach((d) => {
+                    if(d == state.day || state.day == "All") found = true;
+                });
+                return found;
+            });
             return {
                 ...state,
-                items: action.payload
+                items: action.payload,
+                todaysItems: initialTodaysItems
             }
         case TOGGLE_NEW_ITEM_MODAL:
             return {
@@ -63,9 +73,17 @@ export default function(state = INIT_STATE, action){
                 }
             }
         case SET_DAY:
+            const todaysItems = state.items.filter((i) => {
+                let found = false;
+                i.days.forEach((d) => {
+                    if(d == action.payload || action.payload == "All") found = true;
+                });
+                return found;
+            });
             return{
                 ...state,
-                day: action.payload
+                day: action.payload,
+                todaysItems
             }
         case OPEN_AGENDA_MODAL:
             return{
