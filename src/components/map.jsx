@@ -35,26 +35,18 @@ class Map extends Component {
             },
             trackUserLocation: true
         }));
-        let marker;
-        let popup;
-        this.props.items.forEach((e) => {
-            marker = new mapboxgl.Marker();
-            marker.setLngLat(e.coords)
-            marker.addTo(map);
-            popup = new mapboxgl.Popup({
-
-            });
-            popup.setHTML(
-                `
-                 <div>
-                    <h1>${e.title}</h1>
-                    <p>${e.building} - ${e.room}</p>
-                    <p>Days: ${e.days.join(" ")}</p>
-                    <p>${parseTime(e.start)} - ${parseTime(e.end)}</p>
-                 </div>
-                `
-            );
-            marker.setPopup(popup);
+        map.on("load", () => {
+            map.addSource("agendaItems", this.props.items);
+            map.addLayer({
+                "id": "agenda-markers",
+                "type": "circle",
+                "source": "agendaItems",
+                "paint": {
+                "circle-radius": 40,
+                "circle-color": "#B42222"
+                },
+                "filter": ["==", "$type", "Point"],
+                });
         });
     }
 
@@ -77,8 +69,30 @@ class Map extends Component {
 }
 
 function mapStateToProps(state){
+    const geoJSON = {
+        type: 'FeatureCollection',
+        features: []
+    };
+    state.agenda.items.forEach((e) => {
+        geoJSON.features.push({
+            type: 'Feature',
+            geometry: {
+                type: "Point",
+                coordinates: e.coords
+            },
+            properties: {
+                "title": "Mapbox SF",
+                "icon": "harbor"
+            }
+        });
+    });
+    const layer = {
+        type: "geojson",
+        data: geoJSON
+    }
+    console.log(geoJSON)
     return{
-        items: state.agenda.items
+        items: layer
     }
 }
 
