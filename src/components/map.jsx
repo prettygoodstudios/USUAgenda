@@ -49,8 +49,8 @@ class Map extends Component {
                 },
                 "filter": ["==", "$type", "Point"],
                 });
-                map.on('click', 'agendaItems', function(e){
-                    console.log("hello")
+                map.on('click', 'agenda-markers', (e) => {
+                    this.props.openAgendaModal(e.features[0].properties.id);
                 });
         });
     }
@@ -86,7 +86,7 @@ function mapStateToProps(state){
                 coordinates: e.coords
             },
             properties: {
-
+                id: e.id
             }
         });
     });
@@ -96,14 +96,7 @@ function mapStateToProps(state){
     }
     console.log(geoJSON)
     if(map.getSource && map.getSource('agendaItems')){
-        console.log(map)
         map.getSource('agendaItems').setData(geoJSON);
-    }
-    if(map.on){
-        console.log("map on")
-        map.on('click', 'agendaItems', function(e){
-            console.log("hello")
-        });
     }
     return{
         items: layer
