@@ -128,7 +128,7 @@ class NewItemModal extends Component {
                     },
                     {
                         label: "Days",
-                        id: "room",
+                        id: "days",
                         type: "checkbox",
                         options: [
                             "Mon",

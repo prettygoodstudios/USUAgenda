@@ -32,7 +32,13 @@ const INIT_STATE = {
 export default function(state = INIT_STATE, action){
     switch(action.type){
         case GET_AGENDA:
-            const initialTodaysItems = action.payload.filter((i) => {
+            const mappedItems = action.payload.map((item, i) => {
+                return{
+                    ...item,
+                    id: i
+                }
+            });
+            const initialTodaysItems = mappedItems.filter((i) => {
                 let found = false;
                 if(i.days.forEach){
                     i.days.forEach((d) => {
@@ -75,7 +81,13 @@ export default function(state = INIT_STATE, action){
                 }
             }
         case SET_DAY:
-            const todaysItems = state.items.filter((i) => {
+            const todaysMappedItems = state.items.map((item, i) => {
+                return{
+                    ...item,
+                    id: i
+                }
+            });
+            const todaysItems = todaysMappedItems.filter((i) => {
                 let found = false;
                 if(i.days.forEach){
                     i.days.forEach((d) => {

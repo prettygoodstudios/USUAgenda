@@ -50,7 +50,7 @@ class Header extends Component {
 
     render(){
         let agendaItems = this.props.items.map((a, i) => {
-           return {...a, id: i};
+           return {...a};
         });
         
 
