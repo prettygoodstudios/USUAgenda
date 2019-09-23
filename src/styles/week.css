@@ -1,0 +1,29 @@
+.week{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+:root{
+    --week-day-border-width: 3px;
+}
+
+.week__day{
+    width: calc(100% / 7);
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: var(--week-day-border-width) solid var(--primary-color);
+    border-right-width: 0px;
+    color: var(--primary-color);
+}
+
+.week__day:nth-child(7){
+    border-right-width: var(--week-day-border-width);
+}
+
+.week__day-found{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
