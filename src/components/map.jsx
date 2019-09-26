@@ -39,19 +39,25 @@ class Map extends Component {
             map.addSource("agendaItems", this.props.items);
             map.addLayer({
                 "id": "agenda-markers",
-                "type": "circle",
+                "type": "symbol",
                 "source": "agendaItems",
-                "paint": {
-                    "circle-radius": 20,
-                    "circle-color": "#ececec",
-                    "circle-stroke-color": "#34495e",
-                    "circle-stroke-width": 4
-                },
                 "filter": ["==", "$type", "Point"],
-                });
-                map.on('click', 'agenda-markers', (e) => {
-                    this.props.openAgendaModal(e.features[0].properties.id);
-                });
+                "layout": {
+                    "text-field": [
+                        "format",
+                        ["get", "title"], {},
+                        "\n", {},
+                        ["get", "subtitle"], {"font-scale": 0.5}
+                    ],
+                    "icon-image": "college-15",
+                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                    "text-offset": [0, 0.6],
+                    "text-anchor": "top"
+                }
+            });
+            map.on('click', 'agenda-markers', (e) => {
+                this.props.openAgendaModal(e.features[0].properties.id);
+            });
         });
     }
 
@@ -86,7 +92,9 @@ function mapStateToProps(state){
                 coordinates: e.coords
             },
             properties: {
-                id: e.id
+                id: e.id,
+                title: e.title,
+                subtitle: parseTime(e.start)+"-"+parseTime(e.end)
             }
         });
     });
