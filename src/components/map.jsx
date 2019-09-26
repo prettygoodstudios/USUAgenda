@@ -45,9 +45,9 @@ class Map extends Component {
                 "layout": {
                     "text-field": [
                         "format",
-                        ["get", "title"], {},
+                        ["get", "title"], {"font-scale": 1.5},
                         "\n", {},
-                        ["get", "subtitle"], {"font-scale": 0.5}
+                        ["get", "subtitle"], {"font-scale": 0.8}
                     ],
                     "icon-image": "college-15",
                     "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
