@@ -73,6 +73,7 @@ class Map extends Component {
             return data.json();
         }).then((data) => {
             console.log(data);
+            console.log("polyline", polyline.toGeoJSON(data.routes[0].geometry))
             map.addLayer({
                 "id": "route"+index,
                 "type": "line",
@@ -80,17 +81,21 @@ class Map extends Component {
                     "type": "geojson",
                     "data": {
                         "type": "Feature",
-                        "properties": {},
-                        "geometry": polyline.toGeoJSON(data.routes[0].geometry),
-                        "layout": {
-                            "line-join": "round",
-                            "line-cap": "round"
+                        "properties": {
+                            "color": ["green", "yellow"][index%2],
+                            "order": index
                         },
-                        "paint": {
-                            "line-color": "##34495e",
-                            "line-width": 8
-                        }
+                        "geometry": polyline.toGeoJSON(data.routes[0].geometry)
                     }
+                },
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round",
+                    "line-sort-key": ["get", "order"]
+                },
+                "paint": {
+                    "line-color": ["get", "color"],
+                    "line-width": 8
                 }
             });
         }).catch((e) => {
