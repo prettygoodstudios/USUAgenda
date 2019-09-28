@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import mapboxgl, {NavigationControl, GeolocateControl} from "mapbox-gl/dist/mapbox-gl.js";
+import mapboxgl, {NavigationControl, GeolocateControl} from "mapbox-gl";
 import polyline from "@mapbox/polyline";
 import {connect} from "react-redux";
 
@@ -59,43 +59,43 @@ class Map extends Component {
             map.on('click', 'agenda-markers', (e) => {
                 this.props.openAgendaModal(e.features[0].properties.id);
             });
-            fetch('https://api.mapbox.com/directions/v5/mapbox/walking/-111.8141048%2C41.7407652%3B-111.8120%2C41.7476.json?access_token=pk.eyJ1IjoicHJldHR5Z29vZHN0dWRpb3MiLCJhIjoiY2pkamx4aTZlMWt4dDJwbnF5a3ZmbTEzcyJ9.lu_9eqO1kmUMPf9LXU80yg').then((data) => {
-                return data.json();
-            }).then((data) => {
-                console.log(data);
-                map.addLayer({
-                    "id": "route",
-                    "type": "line",
-                    "source": {
-                        "type": "geojson",
-                        "data": {
-                            "type": "Feature",
-                            "properties": {},
-                            "geometry": polyline.toGeoJSON(data.routes[0].geometry),
-                            "layout": {
-                                "line-join": "round",
-                                "line-cap": "round"
-                            },
-                            "paint": {
-                                "line-color": "##34495e",
-                                "line-width": 8
-                            }
-                        }
-                    }
-                });
-            }).catch((e) => {
-                console.log("Error: ", e);
-            });
+            const {features} = this.props.items.data;
+            for(let i = 0; i < features.length-1; i++){
+                this.addRoute(i);
+            }
         });
     }
 
 
-    addNavigation = () => {
-        
-    }
-
-    addMarkers = () => {
-
+    addRoute = (index) => {
+        const {features} = this.props.items.data;
+        fetch('https://api.mapbox.com/directions/v5/mapbox/walking/'+features[index].geometry.coordinates[0]+'%2C'+features[index].geometry.coordinates[1]+'%3B'+features[index+1].geometry.coordinates[0]+'%2C'+features[index+1].geometry.coordinates[1]+'.json?access_token=pk.eyJ1IjoicHJldHR5Z29vZHN0dWRpb3MiLCJhIjoiY2pkamx4aTZlMWt4dDJwbnF5a3ZmbTEzcyJ9.lu_9eqO1kmUMPf9LXU80yg').then((data) => {
+            return data.json();
+        }).then((data) => {
+            console.log(data);
+            map.addLayer({
+                "id": "route"+index,
+                "type": "line",
+                "source": {
+                    "type": "geojson",
+                    "data": {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": polyline.toGeoJSON(data.routes[0].geometry),
+                        "layout": {
+                            "line-join": "round",
+                            "line-cap": "round"
+                        },
+                        "paint": {
+                            "line-color": "##34495e",
+                            "line-width": 8
+                        }
+                    }
+                }
+            });
+        }).catch((e) => {
+            console.log("Error: ", e);
+        });
     }
 
     render(){

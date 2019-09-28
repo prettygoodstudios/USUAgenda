@@ -53,10 +53,6 @@ class Header extends Component {
            return {...a};
         });
         
-
-        agendaItems.sort((a, b) => {
-            return parseInt(a.start.split(":")[0])-parseInt(b.start.split(":")[0]);
-        });
         return(
             <div className="header">
                 <div className={"header__toggle"+(this.state.openMenu ? " open-menu-toggle" : "")} onClick={this.toggleMenu}>

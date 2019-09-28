@@ -47,10 +47,13 @@ export default function(state = INIT_STATE, action){
                 }
                 return found;
             });
+            const todaysInitialSortedItems = initialTodaysItems.sort((a, b) => {
+                return parseInt(a.start.split(":")[0])-parseInt(b.start.split(":")[0]);
+            });
             return {
                 ...state,
                 items: action.payload,
-                todaysItems: initialTodaysItems
+                todaysItems: todaysInitialSortedItems
             }
         case TOGGLE_NEW_ITEM_MODAL:
             return {
@@ -96,10 +99,13 @@ export default function(state = INIT_STATE, action){
                 }
                 return found;
             });
+            const todaysSortedItems = todaysItems.sort((a, b) => {
+                return parseInt(a.start.split(":")[0])-parseInt(b.start.split(":")[0]);
+            });
             return{
                 ...state,
                 day: action.payload,
-                todaysItems
+                todaysItems: todaysSortedItems
             }
         case OPEN_AGENDA_MODAL:
             return{
