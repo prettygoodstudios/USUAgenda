@@ -84,7 +84,7 @@ class Map extends Component {
                         "properties": {
                             "color": ["green", "yellow", "red"][index%3],
                             "order": index,
-                            "offset": (index%2)*5
+                            "offset": (index%3)*5
                         },
                         "geometry": polyline.toGeoJSON(data.routes[0].geometry)
                     }
@@ -96,7 +96,8 @@ class Map extends Component {
                 },
                 "paint": {
                     "line-color": ["get", "color"],
-                    "line-width": 8
+                    "line-width": 8,
+                    "line-offset": ["get", "offset"]
                 }
             });
         }).catch((e) => {
